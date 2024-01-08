@@ -23,8 +23,8 @@ public class UserController {
 
 	final String domains[] = {"@google.com" , "@gmail.com" , "@yahoo.com" , "@hotmail.com"};
 	@GetMapping("/findAllUsers/{input}")
-	public List<String> getUsers(@PathVariable String input)
-	{
+	public List<String> getUsers(@PathVariable String input) {
+		input = input.toLowerCase();
 		List<String> usersWithGivenSequenceList = new ArrayList<>();
 		list = repo.findAll();
 		for(User user : list) {
@@ -36,6 +36,7 @@ public class UserController {
 		for(String domain : domains)
 			if(!usersWithGivenSequenceList.contains(input + domain))
 				usersWithGivenSequenceList.add(input+domain);
+		System.out.println("No of Emails returned with the given input: "+ usersWithGivenSequenceList.size());
 		return usersWithGivenSequenceList;
 	}
 }
